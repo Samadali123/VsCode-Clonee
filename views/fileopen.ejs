@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vs code</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <div id="main">
+    <div id="left">
+      <div id="folder">
+        <h3>Vs Code</h3>
+        <div id="part2">
+          <i id="fileicon" class="ri-file-line"></i>
+          <i id="foldericon" class="ri-folder-line"></i>
+         <a href="/"><i class="ri-restart-line"></i></a>
+          <i class="ri-file-copy-line"></i>
+
+        </div>
+      </div>
+
+      <div class="fileform same">
+        <form action="/filecreate"  method="post">
+          <input type="text" placeholder="filename"  name="filename">
+        </form>
+      </div>
+
+
+      <div class="folderform same">
+        <form action="/foldercreate" method="post">
+          <input type="text" placeholder="foldername" name="foldername">
+        </form>
+      </div>
+
+      <div id="files">
+        <% data.forEach(function(elem){ %>
+          <div class="file">
+            <h3>
+            <%   if(elem.isDirectory() == true){ %>
+                <i class="ri-folder-line"></i>
+           <%    } else{ %>
+                <i class="ri-file-line"></i>
+            <%   }  %>
+              <%= elem.name %>
+            </h3>
+             <div id="ficon">
+              <i class="ri-pencil-line"></i>
+              <i class="ri-delete-bin-7-line"></i>
+             </div>
+          </div>
+      <%   })  %>
+      </div>
+    </div>
+
+    <div id="right">
+      <div id="panel">
+        <div class="openedfile">
+            <h3><%=name %></h3>
+           <a href="/close"><i class="ri-close-line"></i></a>
+        </div>
+      </div>
+       
+      <div id="text">
+        <form id="content" action="">
+            <textarea name="dataa">
+                <%=content %>
+            </textarea>
+        </form>
+      </div>
+    
+
+    </div>
+
+  </div>
+
+
+  
+  <script>
+  
+  </script>
+</body>
+</html>

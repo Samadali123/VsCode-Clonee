@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vs code</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+  <div id="overlay">
+     <div id="center">
+      <form id="rename" action="" method="post">
+        <h3>rename</h3>
+        <input id="change" type="text" name="filename" >
+        <input type="submit" value="change">
+      </form>
+     </div>
+  </div>
+
+
+  <div id="main">
+    <div id="left">
+      <div id="folder">
+        <h3>Vs Code</h3>
+        <div id="part2">
+          <i id="fileicon" class="ri-file-line"></i>
+          <i id="foldericon" class="ri-folder-line"></i>
+         <a href="/"><i class="ri-restart-line"></i></a>
+          <i class="ri-file-copy-line"></i>
+
+        </div>
+      </div>
+
+      <div class="fileform same">
+        <form action="/filecreate"  method="post">
+          <input type="text" placeholder="filename"  name="filename">
+        </form>
+      </div>
+
+
+      <div class="folderform same">
+        <form action="/foldercreate" method="post">
+          <input type="text" placeholder="foldername" name="foldername">
+        </form>
+      </div>
+
+      <div id="files">
+        <% data.forEach(function(elem){ %>
+          <div class="file">
+            <a href="/files/open/<%= elem.name %>">
+              <%   if(elem.isDirectory() == true){ %>
+                <i class="ri-folder-line"></i>
+           <%    } else{ %>
+                <i class="ri-file-line"></i>
+            <%   }  %>
+              <%= elem.name %>
+            </a>
+             <div id="ficon">
+              <i  id="edit" data-val="<%=elem.name %>" class="ri-pencil-line"></i>
+             <%   if(elem.isDirectory() == true){ %>
+                <a href="/files/delete/folder/<%= elem.name %>"><i class="ri-delete-bin-7-line"></i></a>
+             <%  }   else{  %>
+                <a href="/files/delete/file/<%= elem.name %>"><i class="ri-delete-bin-7-line"></i></a>
+              <%  }  %>
+              
+             </div>
+          </div>
+      <%   })  %>
+
+
+      </div>
+    </div>
+
+
+    <div id="right">
+      <small>nothing to show</small>
+    </div>
+
+  </div>
+
+  <script>
+    
+
+    function donobandkro(){
+      document.querySelectorAll(".same form input").forEach(function(elm){
+        elm.style.display = "none";
+      })
+    }
+    var check = 0;
+    
+
+    document.querySelector("#fileicon").addEventListener("click", function(){
+      donobandkro();
+      if(check == 0){
+        document.querySelector(" #left .fileform input").style.display = "block";
+      check = 1;
+      }
+      
+      else{
+        document.querySelector("#left .fileform input").style.display = "none";
+        check = 0;
+      }
+    
+    })
+
+
+
+
+    var check2 = 0;
+    
+    document.querySelector("#foldericon").addEventListener("click", function(){
+      donobandkro();
+      if(check2 == 0){
+        document.querySelector(" #left .folderform input").style.display = "block";
+      check2 = 1;
+      }
+
+      else{
+        document.querySelector("#left .folderform input").style.display = "none";
+        check2 = 0;
+      }
+    
+    })
+
+
+    document.querySelector("#files").addEventListener("click", function(dets){
+      if(dets.target.id === "edit"){
+        document.querySelector("#right").innerHTML = "";
+        document.querySelector("#overlay").style.display = "initial";
+
+        document.querySelector("#rename #change").value = dets.target.dataset.val;
+        
+        document.querySelector("#rename").setAttribute("action",  `/change/${dets.target.dataset.val}`)
+      }
+    })
+
+
+  </script>
+</body>
+</html>
